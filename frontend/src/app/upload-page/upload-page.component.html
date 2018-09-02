@@ -1,0 +1,37 @@
+<div class=" d-flex justify-content-center">
+    <div class="col-sm-8 title">
+        <h2>Upload Page</h2>
+      </div>
+</div>
+<div class=" d-flex justify-content-center">
+    <div class="col-sm-8 option">
+        <h3>Option 1: upload local files (.txt, .html, .pdf)</h3>
+      </div>
+</div>
+
+<div class=" d-flex justify-content-center">
+    <div class="col-sm-8">
+      <div *ngIf="auth.user | async as user" class="custom-file">
+        <input type="file" #file class="custom-file-input upload_input" id="customFile" (change)="onFilesAdded($event)" accept="application/pdf, text/plain, text/html" multiple>
+        <label class="custom-file-label" for="customFile">{{hint}}</label>
+        <br>
+        <button class="btn btn-primary upload_button" (click)="startUpload()">upload choosing files</button>
+        <p class="error-message">{{message1}}</p>
+      </div>
+    </div>
+</div>
+<br>
+<br>
+<br>
+<div class=" d-flex justify-content-center">
+    <div class="col-sm-8 option">
+        <h3>Option 2: scan files on the links</h3>
+      </div>
+</div>
+<div class="d-flex justify-content-center">
+  <div class="col-sm-8">
+    <input #crawler type="text" class="form-control input-lg upload_input" (keyup.enter)="onSubmit(crawler)" ngModel placeholder="The Page Links Containing Your Files">
+    <button class="btn btn-primary upload_button" (click)="onSubmit(crawler)">upload using links</button>
+    <p class="error-message">{{message2}}</p>
+  </div>
+</div>

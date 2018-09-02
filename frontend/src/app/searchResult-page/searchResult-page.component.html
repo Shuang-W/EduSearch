@@ -1,0 +1,54 @@
+<form>
+  <div class="row">
+    <div class="col-sm-2">
+      <img style= "height: 50px; margin-left: 30px; margin-right: 10px; margin-top: 20px" src="../../assets/icons/edusearch_raw_logo.png" alt="edu search" />
+    </div>
+    <div class="form-group col-sm-4">
+      <mat-form-field class="speech-result-width">
+        <input #keyword id="searchBar" matInput [value]="searchKey" type="text" class="form-control" placeholder="What do you want to search for today?">
+      </mat-form-field>
+    </div>
+    <div class="col-sm-2">
+      <button class="btn btn-primary searchButton" (click)="searchButtonClick([keyword.value, [all.checked, professor.checked, student.checked]])">
+        <i class="fa fa-search" style="font-size: 25px"></i>
+      </button>
+      <button class="btn btn-primary searchButton" (click)="startButton($event)">
+          <i class="fa fa-microphone" *ngIf="!recognizing" style="font-size: 25px"></i>
+          <i class="fa fa-microphone-slash" *ngIf="recognizing" style="font-size: 25px"></i>
+      </button>
+    </div>
+    <div class="col-sm-4">
+        <mat-radio-group style="margin-top:20px" class="UserTypeFilter">
+            <mat-radio-button #all value="all" [checked]='searchRange === "all"' class="filterButton">All</mat-radio-button>
+            <mat-radio-button #professor value="professor" [checked]='searchRange === "professor"' class="filterButton">Professor</mat-radio-button>
+            <mat-radio-button #student value="student" [checked]='searchRange === "student"' class="filterButton">Student</mat-radio-button>
+        </mat-radio-group>
+    </div>
+
+  </div>
+</form>
+<br>
+<mat-card *ngIf="notification" class="notification">{{notification}}</mat-card>
+<br>
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12 singleResult" *ngFor='let item of searchResult'>
+      <div class="row">
+        <div class="col-sm-11">
+          <h3>{{item.filename}}</h3>
+        </div>
+
+        <div class="col-sm-1">
+          <button class="btn btn-success singleViewButton" (click)="viewFile(item.id, item.filename)">View</button>
+        </div>
+      </div>
+
+      <i class="fa fa-user" style="font-size: 15px"></i>
+      <p>{{item.user}}</p>
+
+      <i class="fa fa-calendar" style="font-size: 15px"></i>
+      <p>{{item.date}}</p>
+
+    </div>
+  </div>
+</div>

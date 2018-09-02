@@ -1,0 +1,36 @@
+<!-- User Shared Views-->
+<form>
+  <div class="d-flex justify-content-center" style="margin-top: 5%; margin-bottom: 2%;">
+    <img src="../../assets/icons/edusearch_raw_logo.png" alt="edu search"/>
+  </div>
+  <div class="row">
+    <div class="col-sm-3"></div>
+    <div class="form-group col-sm-6">
+      <mat-form-field class="speech-result-width">
+        <input id="searchBar" matInput [value]="finalTranscript" type="text" class="form-control" placeholder="What do you want to search for today?">
+      </mat-form-field>
+    </div>
+    <div class="col-sm-3">
+      <button class="btn btn-primary searchButton" (click)="search()">
+        <i class="fa fa-search" style="font-size: 25px"></i>
+      </button>
+      <button class="btn btn-primary searchButton" (click)="startButton($event)">
+        <i class="fa fa-microphone" *ngIf="!recognizing" style="font-size: 25px"></i>
+        <i class="fa fa-microphone-slash" *ngIf="recognizing" style="font-size: 25px"></i>
+      </button>
+    </div>
+  </div>
+</form>
+
+<div class="center">
+  <mat-form-field>
+    <mat-select placeholder="Select your language"
+                [(ngModel)]="currentLanguage" [disabled]="recognizing">
+      <mat-option *ngFor="let language of languages" [value]="language" (click)="onSelectLanguage(language)">
+        {{language}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+
+<mat-card *ngIf="notification" class="notification">{{notification}}</mat-card>
