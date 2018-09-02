@@ -1,0 +1,55 @@
+<br />
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-4 profile-info-container" *ngIf='auth.user | async as user' style="text-align:center">
+      <mat-form-field hintLabel="Max 30 characters">
+        <input matInput #input1 maxlength="30" placeholder="Display Name" value={{user.displayName}} required>
+        <mat-hint align="end">{{input1.value?.length || 0}}/30</mat-hint>
+      </mat-form-field>
+
+      <br><br>
+
+      <mat-form-field hintLabel="Max 30 characters">
+        <input matInput #input2 maxlength="30" placeholder="Email" value={{user.email}} required>
+        <mat-hint align="end">{{input2.value?.length || 0}}/30</mat-hint>
+      </mat-form-field>
+
+      <br><br>
+
+      <mat-radio-group>
+        <mat-radio-button #professor value="professor" [checked]='user.userType === "professor"'>Professor</mat-radio-button>
+        <mat-radio-button #student value="student" [checked]='user.userType === "student"'>Student</mat-radio-button>
+      </mat-radio-group>
+
+      <br><br>
+
+      <button type="button" class="btn btn-success" (click)="updateUserInfo([input1.value, input2.value, [professor.checked, student.checked]])">Save</button>
+    </div>
+
+    <div class="col-sm-8 chart">
+      <canvas id="canvas">{{ chart }}</canvas>
+    </div>
+  </div>
+
+  <br/>
+  <br/>
+
+  <div>
+
+      <div class="row filelist" *ngFor="let file of files">
+        <div class="col-sm-1"></div>
+        <div class = "col-sm-5">
+          {{file}}
+        </div>
+        <div class="col-sm-3">
+          <button class="btn btn-success" (click)="viewFile(file)">View</button>
+        </div>
+        <div class="col-sm-3">
+          <button class="btn btn-danger" (click)="deleteFile(file)">Delete</button>
+        </div>
+      </div>
+
+  </div>
+</div>
+<br/>
+<br/>
